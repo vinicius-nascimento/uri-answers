@@ -105,73 +105,9 @@ Grafo *criaGrafo (int V){
 	return G;
 }
 
-void imprimeGrafo (Grafo *G){
-	int v, w;
-	for (v=0;v<G->V;v++){
-		printf("%d:", v);
-		for (w=0;w<G->V;w++)
-			if (G->adj[v][w] == 1) printf(" %d", w);
-		printf("\n");
-	}
-}
-
 int verificaAdj (Grafo *G, int v, int w){
 	if (G->adj[v][w] == 1) return 1;
 	else return 0;
-}
-
-void imprimeAdj (Grafo *G, int v){
-	int i;
-	printf("%d:", v);
-	for (i=0;i<G->V;i++)
-		if (verificaAdj(G,v,i) == 1) printf(" %d", i);
-	printf("\n");
-}
-
-int grauVertice (Grafo *G, int v){
-	int i, resp = 0;
-	for (i=0;i<G->V;i++)
-		if (verificaAdj(G,v,i) == 1) resp++;
-	return resp;
-}
-
-void sort (int* v, int tam){
-	int i, j, aux;
-	for (i=0;i<(tam-1);i++){
-		for (j=(i+1);j<tam;j++){
-			if (v[j] > v[i]){
-				aux = v[i];
-				v[i] = v[j];
-				v[j] = aux;
-			}
-		}
-	}
-}
-
-int *sequenciaDeGraus (Grafo *G){
-	int *graus = malloc (G->V*sizeof(int));
-	int v;
-	for (v=0;v<G->V;v++){
-		graus[v] = grauVertice(G,v);
-	}
-    sort(graus,G->V);
-	return graus;
-}
-
-int compSequencias (Grafo *G, Grafo *H){
-	int i, resp = 1;
-	int *p = sequenciaDeGraus(G);
-	int *q = sequenciaDeGraus(H);
-	if (G->V != H->V) resp = 0;
-	else {
-		for (i=0;i<G->V;i++){
-			if (p[i] != q[i]){
-				resp = 0;
-				break;
-			} 
-		}
-	}
-	return resp;
 }
 
 int bipartido (Grafo *G){
